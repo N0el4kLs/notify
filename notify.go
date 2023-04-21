@@ -3,7 +3,7 @@ package notify
 import (
 	"sync"
 
-	"notify/pkg/notifications"
+	"github.com/N0el4kLs/notify/pkg/notifications"
 )
 
 type Sender notifications.Notifier
