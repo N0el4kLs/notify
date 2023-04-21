@@ -6,13 +6,13 @@ import (
 	"notify/pkg/notifications"
 )
 
-type Provider notifications.Notifier
+type Sender notifications.Notifier
 
-func Notice(providers ...Provider) {
+func Notice(providers ...Sender) {
 	var wg sync.WaitGroup
 	for _, provider := range providers {
 		wg.Add(1)
-		go func(p Provider) {
+		go func(p Sender) {
 			defer wg.Done()
 			p.Notice()
 		}(provider)
