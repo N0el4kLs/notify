@@ -22,7 +22,6 @@ type Options struct {
 type Config struct {
 	BarkServer string // the server address of running bark
 	DeviceKey  string // the device key which your tools or apps generated
-
 }
 
 // Message bark notification body settings
@@ -66,8 +65,8 @@ func (b Bark) Notice() error {
 	c := req.C().SetBaseURL(fmt.Sprintf("%s/push", b.Clients.BarkServer))
 	resp := c.Post().SetBodyJsonBytes(barkBody).Do()
 	if resp.Err != nil {
-		gologger.Warning().Label("Bark").Msgf("Send bark notification error %s\n", err)
-		return err
+		gologger.Warning().Label("Bark").Msgf("Send bark notification error %s\n", resp.Err)
+		return resp.Err
 	}
 	return nil
 }

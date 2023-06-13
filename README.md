@@ -9,7 +9,7 @@
 - [x] ~~Bark(IOS)~~
 
 - [x] ~~Wechat~~
-- [ ] Feishu
+- [x] Feishu
 - [ ] Enterprise WeChat
 - [ ] DingDing
 
@@ -76,7 +76,24 @@ wechatProvider := wechat.Init(wechatConf, wechatTemplate)
 Notice( wechatProvider)
 ```
 
+### 飞书配置
 
+```go
+// 设置飞书机器人的配置信息,包括飞书机器人的 HookToken以及CryptoKey
+feishuConf := feishu.Config{
+		HookToken: HOOK_TOKEN,
+		CryptoKey: CRYPTO_KEY,
+	}
+	
+// 设置需要发送的消息,目前只支持文本内容的设置	
+feishuMessage := feishu.InitMessage("Hello, this is feishu message")
+
+// 创建飞书的Provider对象
+feishuProvider := feishu.Init(feishuConf, feishuMessage)
+
+// 使用 options 模式运行传入的Provider对象
+notify.Notice(feishuProvider)
+```
 
 
 
@@ -91,3 +108,8 @@ Todo：
 - [ ] `Bark`消息初始化函数优化
 - [ ] 增加常用消息模板,使其满足大都数场景
 - [ ] 报错提示优化
+
+
+### 2023-6-13
+
+新增支持 `飞书(Feishu)` 消息通知方式

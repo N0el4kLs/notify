@@ -1,5 +1,4 @@
 .idea
 cmd
 *.exe
-pkg/notifications/bark/bark_test.go
-pkg/notifications/wechat/wechat_test.go
+*_test.go
