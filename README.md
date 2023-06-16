@@ -37,7 +37,13 @@ conf := bark.Config{
 }
 
 // 设置需要发送的消息,目前只支持文本内容的设置
-message := bark.InitMessage("Hello, this is bark message")
+message := bark.InitMessage(
+	"Hello, this is bark message"
+	WithTitle("This is title for bark notification"),
+	WithGroup("Test"),
+	WithSound("shake"),
+	WithIcon("https://particles.oss-cn-beijing.aliyuncs.com/img/github_bark_icon-1686929068926.png"),
+	)
 
 // 根据前面的 conf以及 messgae 生成 Provider对象
 barkProvider := bark.Init(conf, message)
@@ -113,3 +119,7 @@ Todo：
 ### 2023-6-13
 
 新增支持 `飞书(Feishu)` 消息通知方式
+
+### 2023-6-16
+
+新增 `Bark` 通知设置，包括: `Title`, `Group`, `Sound`, `Icon`.

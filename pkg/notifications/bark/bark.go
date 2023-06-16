@@ -12,6 +12,8 @@ type Bark struct {
 	Clients *Options
 }
 
+type BarkMessageOptions func(*Message)
+
 // Options Configuration options required to run bark
 type Options struct {
 	Config
@@ -19,6 +21,7 @@ type Options struct {
 }
 
 // Config you can all the parameters by your application
+// https://github.com/Finb/bark-server/blob/master/docs/API_V2.md
 type Config struct {
 	BarkServer string // the server address of running bark
 	DeviceKey  string // the device key which your tools or apps generated
@@ -36,11 +39,40 @@ type Message struct {
 	Key   string `json:"device_key" yaml:"key"`
 }
 
-// InitMessage Todo
+// InitMessage
+// Todo
 // This function can just set message text only, in future will support set more options
-func InitMessage(body string) Message {
-	return Message{
+func InitMessage(body string, options ...BarkMessageOptions) Message {
+	message := Message{
 		Body: body,
+	}
+	for _, option := range options {
+		option(&message)
+	}
+	return message
+}
+
+func WithTitle(titleName string) BarkMessageOptions {
+	return func(m *Message) {
+		m.Title = titleName
+	}
+}
+
+func WithGroup(groupName string) BarkMessageOptions {
+	return func(m *Message) {
+		m.Group = groupName
+	}
+}
+
+func WithSound(soundName string) BarkMessageOptions {
+	return func(m *Message) {
+		m.Sound = soundName
+	}
+}
+
+func WithIcon(icon string) BarkMessageOptions {
+	return func(m *Message) {
+		m.Icon = icon
 	}
 }
 
